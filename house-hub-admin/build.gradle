@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.3'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set("mysqlVersion", "8.0.33")
+    set("springVersion", "3.2.3")
+    set("jwtVersion", "0.11.5")
+    set("mapstructVersion", "1.5.5.Final")
+    set("lombokVersion", "1.18.30")
+    set("lombokMapstructBindingVersion", "0.2.0")
+    set('springCloudVersion', "2023.0.0")
+    set('springdocVersion', "2.3.0")
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: "${mysqlVersion}"
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "${springVersion}"
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: "${jwtVersion}"
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: "${jwtVersion}"
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: "${jwtVersion}"
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}", "org.projectlombok:lombok:${lombokVersion}", "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: "${springdocVersion}"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

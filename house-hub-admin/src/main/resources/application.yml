@@ -1,0 +1,25 @@
+server:
+  port: 0
+spring:
+  application:
+    name: admin
+  datasource:
+    url: jdbc:mysql://localhost:3306/househub
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:7071/eureka
+security:
+  jwt:
+    access: 36000000
+    refresh: 2592000000
+    secret: aGZiYmtiYWllYmNpZWFpZWJsZWNldWNlY2xhZWNhaWJlbGNhZWN3Q0VCV0VXSUM

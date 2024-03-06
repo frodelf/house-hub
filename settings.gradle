@@ -1,0 +1,5 @@
+rootProject.name = 'house-hub'
+
+includeBuild("eureka-server")
+includeBuild("api-gateway")
+includeBuild("house-hub-admin")
