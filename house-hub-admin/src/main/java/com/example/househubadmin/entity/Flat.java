@@ -18,11 +18,13 @@ public class Flat {
     private Integer fullArea;
     private Integer kitchenArea;
     private Boolean thereIsBalcony;
+    private Boolean thereIsMortgage;
     private String calculationOptions;
     private Integer agencyCommission;
     private String description;
+    private String reason;
     private Integer price;
-    private LocalDate createdDate;
+    private LocalDate updatedDate;
 
     private StatusState statusState;
     private Appointment appointment;

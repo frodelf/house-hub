@@ -1,5 +1,5 @@
 server:
-  port: 7072
+  port: 47074
 spring:
   application:
     name: api-gateway
@@ -14,4 +14,4 @@ eureka:
     hostname: localhost
   client:
     service-url:
-      defaultZone: http://localhost:7071/eureka
+      defaultZone: http://localhost:47073/eureka

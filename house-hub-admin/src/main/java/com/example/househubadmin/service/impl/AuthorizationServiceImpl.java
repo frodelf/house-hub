@@ -5,7 +5,7 @@ import com.example.househubadmin.jwt.JwtRequest;
 import com.example.househubadmin.jwt.JwtResponse;
 import com.example.househubadmin.jwt.JwtTokenProvider;
 import com.example.househubadmin.service.AdminService;
-import com.example.househubadmin.service.AuthService;
+import com.example.househubadmin.service.AuthorizationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 @Log4j2
-public class AuthorizationServiceImpl implements AuthService {
+public class AuthorizationServiceImpl implements AuthorizationService {
     private final AuthenticationManager authenticationManager;
     private final AdminService adminService;
     private final JwtTokenProvider jwtTokenProvider;

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthorizationServiceImpl authService;
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "authorized"),
+            @ApiResponse(responseCode = "200", description = "Authorized"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
     })
     @Operation(summary = "Authorization user")
@@ -29,7 +29,7 @@ public class AuthController {
         return authService.login(loginRequest);
     }
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "authorized"),
+            @ApiResponse(responseCode = "200", description = "Authorized"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
     })
     @Operation(summary = "Update access token")

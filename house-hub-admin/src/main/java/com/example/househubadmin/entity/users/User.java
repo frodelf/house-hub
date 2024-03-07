@@ -1,5 +1,7 @@
 package com.example.househubadmin.entity.users;
 
+import com.example.househubadmin.entity.enums.StatusState;
+import com.example.househubadmin.entity.enums.StatusUser;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,4 +20,5 @@ public abstract class User {
     private String phone;
     private String email;
     private String password;
+    private StatusUser status;
 }
