@@ -1,11 +1,11 @@
 package com.example.househubadmin.service.impl;
 
-import com.example.househubadmin.dto.notary.NotaryDtoForAdd;
-import com.example.househubadmin.dto.notary.NotaryDtoForViewAll;
+import com.example.househubadmin.dto.user.notary.NotaryDtoForAdd;
+import com.example.househubadmin.dto.user.UserDtoForViewAll;
 import com.example.househubadmin.entity.enums.StatusUser;
 import com.example.househubadmin.entity.users.Notary;
-import com.example.househubadmin.mapper.notary.NotaryMapperForAdd;
-import com.example.househubadmin.mapper.notary.NotaryMapperForViewAll;
+import com.example.househubadmin.mapper.user.notary.NotaryMapperForAdd;
+import com.example.househubadmin.mapper.user.UserMapperForViewAll;
 import com.example.househubadmin.repository.NotaryRepository;
 import com.example.househubadmin.service.MinioService;
 import com.example.househubadmin.service.NotaryService;
@@ -29,13 +29,13 @@ import java.security.NoSuchAlgorithmException;
 @RequiredArgsConstructor
 public class NotaryServiceImpl implements NotaryService {
     private final NotaryRepository notaryRepository;
-    private final NotaryMapperForViewAll notaryMapperForViewAll;
+    private final UserMapperForViewAll userMapperForViewAll;
     private final NotaryMapperForAdd notaryMapperForAdd;
     private final MinioService minioService;
     @Override
-    public Page<NotaryDtoForViewAll> getAll(Integer page, Integer pageSize) {
+    public Page<UserDtoForViewAll> getAll(Integer page, Integer pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("id")));
-        return notaryMapperForViewAll.toDtoPage(notaryRepository.findAll(pageable), minioService);
+        return userMapperForViewAll.toDtoPage(notaryRepository.findAll(pageable), minioService);
     }
     @Override
     public void add(NotaryDtoForAdd notaryDtoForAdd) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
@@ -51,7 +51,6 @@ public class NotaryServiceImpl implements NotaryService {
         );
         return notary;
     }
-
     @Transactional
     @Override
     public void deleteById(Long id) {

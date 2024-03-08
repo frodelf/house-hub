@@ -8,5 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface FlatRepository extends JpaRepository<Flat, Long> {
+    Page<Flat> findAllByCorpsId(Long corpsId, Pageable pageable);
+
     Page<Flat> findAllByStatusState(StatusState statusState, Pageable pageable);
 }

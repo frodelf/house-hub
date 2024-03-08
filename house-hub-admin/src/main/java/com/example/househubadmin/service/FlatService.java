@@ -17,4 +17,6 @@ public interface FlatService {
     Flat getById(Long id);
     Flat save(Flat flat);
     FlatDtoForInformationPage getByIdForInformationPage(Long id) throws ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, IOException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
+
+    Page<FlatDtoForViewAll> getAll(Integer page, Integer pageSize, Long corpsId);
 }

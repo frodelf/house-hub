@@ -1,9 +1,9 @@
-package com.example.househubadmin.dto.notary;
+package com.example.househubadmin.dto.user;
 
 import lombok.Data;
 
 @Data
-public class NotaryDtoForViewAll {
+public class UserDtoForViewAll {
     private Long id;
     private String image;
     private String name;

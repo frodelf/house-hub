@@ -1,7 +1,7 @@
 package com.example.househubadmin.controller;
 
-import com.example.househubadmin.dto.notary.NotaryDtoForAdd;
-import com.example.househubadmin.dto.notary.NotaryDtoForViewAll;
+import com.example.househubadmin.dto.user.notary.NotaryDtoForAdd;
+import com.example.househubadmin.dto.user.UserDtoForViewAll;
 import com.example.househubadmin.service.NotaryService;
 import com.example.househubadmin.validator.NotaryValidator;
 import io.minio.errors.*;
@@ -37,8 +37,8 @@ public class NotaryController {
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
     })
     @Operation(summary = "The request to get all notaries")
-    @GetMapping("/get-all-notaries")
-    public ResponseEntity<Page<NotaryDtoForViewAll>> getAllNotaries(@RequestParam Integer page, @RequestParam Integer pageSize){
+    @GetMapping("/get-all")
+    public ResponseEntity<Page<UserDtoForViewAll>> getAll(@RequestParam Integer page, @RequestParam Integer pageSize){
         return ResponseEntity.ok(notaryService.getAll(page, pageSize));
     }
     @ApiResponses(value = {
@@ -47,8 +47,8 @@ public class NotaryController {
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
     })
     @Operation(summary = "The request to add or update(if id isn't null) a notary")
-    @GetMapping("/add-notary")
-    public ResponseEntity<Map<String, String>> getAllNotaries(@RequestBody @Valid NotaryDtoForAdd notaryDtoForAdd, BindingResult bindingResult) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    @GetMapping("/add")
+    public ResponseEntity<Map<String, String>> add(@RequestBody @Valid NotaryDtoForAdd notaryDtoForAdd, BindingResult bindingResult) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         notaryValidator.validate(notaryDtoForAdd, bindingResult);
         Map<String, String> errorsMap = new HashMap<>();
         if (bindingResult.hasErrors()) {
@@ -64,9 +64,10 @@ public class NotaryController {
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
     })
     @Operation(summary = "The request to delete the notary by id")
-    @GetMapping("/delete/{id}")
-    public ResponseEntity<String> deleteById(@PathVariable Long id){
-        notaryService.deleteById(id);
+    @GetMapping("/delete/{notaryId}")
+    public ResponseEntity<String> deleteById(@PathVariable Long notaryId){
+        notaryService.deleteById(notaryId);
         return ResponseEntity.ok("deleted");
     }
+
 }

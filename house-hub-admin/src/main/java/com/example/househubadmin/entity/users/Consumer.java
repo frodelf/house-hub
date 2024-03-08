@@ -25,7 +25,6 @@ public class Consumer extends User{
     private Boolean meAndAgent;
     private Boolean onlyAgent;
     private Boolean exclude;
-    private Boolean isBlocked;
     @ManyToMany
     @JoinTable(
             name = "notary_consumer",

@@ -1,7 +1,7 @@
-package com.example.househubadmin.mapper.notary;
+package com.example.househubadmin.mapper.user;
 
-import com.example.househubadmin.dto.notary.NotaryDtoForViewAll;
-import com.example.househubadmin.entity.users.Notary;
+import com.example.househubadmin.dto.user.UserDtoForViewAll;
+import com.example.househubadmin.entity.users.User;
 import com.example.househubadmin.service.MinioService;
 import io.minio.errors.*;
 import org.mapstruct.Mapper;
@@ -15,16 +15,16 @@ import java.security.NoSuchAlgorithmException;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
-public interface NotaryMapperForViewAll {
+public interface UserMapperForViewAll {
     @Mapping(target = "image", ignore = true)
-    NotaryDtoForViewAll toDto(Notary notary);
-    default NotaryDtoForViewAll toDto(Notary notary, MinioService minioService) throws ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, IOException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        NotaryDtoForViewAll notaryDtoForViewAll = toDto(notary);
-        notaryDtoForViewAll.setImage(minioService.getUrl(notary.getImage()));
-        return notaryDtoForViewAll;
+    UserDtoForViewAll toDto(User user);
+    default UserDtoForViewAll toDto(User user, MinioService minioService) throws ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, IOException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        UserDtoForViewAll userDtoForViewAll = toDto(user);
+        userDtoForViewAll.setImage(minioService.getUrl(user.getImage()));
+        return userDtoForViewAll;
     }
-    default Page<NotaryDtoForViewAll> toDtoPage(Page<Notary> notaries, MinioService minioService){
-        return new PageImpl<>(notaries.getContent().stream()
+    default Page<UserDtoForViewAll> toDtoPage(Page<? extends User> users, MinioService minioService){
+        return new PageImpl<>(users.getContent().stream()
                 .map(notary -> {
                     try {
                         return toDto(notary, minioService);
@@ -34,6 +34,6 @@ public interface NotaryMapperForViewAll {
                         throw new RuntimeException(e);
                     }
                 })
-                .collect(Collectors.toList()), notaries.getPageable(), notaries.getTotalElements());
-    };
+                .collect(Collectors.toList()), users.getPageable(), users.getTotalElements());
+    }
 }

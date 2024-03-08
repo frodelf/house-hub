@@ -1,6 +1,6 @@
-package com.example.househubadmin.mapper.notary;
+package com.example.househubadmin.mapper.user.notary;
 
-import com.example.househubadmin.dto.notary.NotaryDtoForAdd;
+import com.example.househubadmin.dto.user.notary.NotaryDtoForAdd;
 import com.example.househubadmin.entity.users.Notary;
 import com.example.househubadmin.service.MinioService;
 import com.example.househubadmin.service.NotaryService;
@@ -8,7 +8,6 @@ import io.minio.errors.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.Mappings;
 
 import java.io.IOException;
 import java.security.InvalidKeyException;

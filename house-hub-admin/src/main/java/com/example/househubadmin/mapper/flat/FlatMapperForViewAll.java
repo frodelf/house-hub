@@ -26,7 +26,7 @@ public interface FlatMapperForViewAll {
         FlatDtoForViewAll flatDtoForViewAll = toDto(flat);
         if(flat.getImages()!=null && flat.getImages().get(0)!=null) flatDtoForViewAll.setImages(minioService.getUrl(flat.getImages().get(0)));
         if(flat.getCorps()!=null) flatDtoForViewAll.setAddress(flat.getCorps().getBuilding().getAddress());
-        return null;
+        return flatDtoForViewAll;
     }
     default Page<FlatDtoForViewAll> toDtoPage(Page<Flat> flats, MinioService minioService){
         return new PageImpl<>(flats.getContent().stream()

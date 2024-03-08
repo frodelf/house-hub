@@ -1,7 +1,6 @@
 package com.example.househubadmin.validator;
 
-import com.example.househubadmin.dto.notary.NotaryDtoForAdd;
-import com.example.househubadmin.service.NotaryService;
+import com.example.househubadmin.dto.user.notary.NotaryDtoForAdd;
 import com.example.househubadmin.service.UserService;
 import com.example.househubadmin.validator.util.ValidImageUtil;
 import lombok.RequiredArgsConstructor;

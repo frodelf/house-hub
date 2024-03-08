@@ -64,4 +64,9 @@ public class FlatServiceImpl implements FlatService {
     public FlatDtoForInformationPage getByIdForInformationPage(Long id) throws ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, IOException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         return flatMapperForInformationPage.toDto(getById(id), minioService);
     }
+    @Override
+    public Page<FlatDtoForViewAll> getAll(Integer page, Integer pageSize, Long corpsId) {
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("id")));
+        return flatMapperForViewAll.toDtoPage(flatRepository.findAllByCorpsId(corpsId, pageable), minioService);
+    }
 }

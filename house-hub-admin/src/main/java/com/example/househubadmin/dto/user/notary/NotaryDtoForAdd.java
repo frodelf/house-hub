@@ -1,4 +1,4 @@
-package com.example.househubadmin.dto.notary;
+package com.example.househubadmin.dto.user.notary;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
