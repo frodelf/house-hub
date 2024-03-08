@@ -27,7 +27,10 @@ public class SecurityFilterConfig {
                                     .requestMatchers(
                                             "/api/v1/auth/**","/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html"
                                     ).permitAll()
-                                    .anyRequest().authenticated();
+                                    .requestMatchers(
+                                            "/api/v1/building/**", "/api/v1/consumer/**","/api/v1/flat/**","/api/v1/notary/**"
+                                            ).authenticated()
+                                    .anyRequest().permitAll();
                         })
                 .addFilterAfter(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()

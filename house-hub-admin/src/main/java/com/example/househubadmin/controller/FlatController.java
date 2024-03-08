@@ -30,9 +30,9 @@ public class FlatController {
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
     })
     @Operation(summary = "The request to get flat by id for information page")
-    @GetMapping("/get-by-id")
-    public ResponseEntity<FlatDtoForInformationPage> getById(@RequestParam Long id) throws ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, IOException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        return ResponseEntity.ok(flatService.getByIdForInformationPage(id));
+    @GetMapping("/get-by-id/{flatId}")
+    public ResponseEntity<FlatDtoForInformationPage> getById(@PathVariable Long flatId) throws ServerException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, IOException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        return ResponseEntity.ok(flatService.getByIdForInformationPage(flatId));
     }
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Authorized"),
