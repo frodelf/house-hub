@@ -7,6 +7,7 @@ import com.example.househubadmin.mapper.user.UserMapperForViewAll;
 import com.example.househubadmin.repository.ConsumerRepository;
 import com.example.househubadmin.service.ConsumerService;
 import com.example.househubadmin.service.MinioService;
+import com.example.househubadmin.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,6 +25,7 @@ public class ConsumerServiceImpl implements ConsumerService {
     private final ConsumerRepository consumerRepository;
     private final UserMapperForViewAll userMapperForViewAll;
     private final MinioService minioService;
+    private final UserService userService;
     @Override
     public Page<UserDtoForViewAll> getAll(Integer page, Integer pageSize, String consumerName, StatusUser statusUser) {
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("id")));
@@ -32,23 +34,8 @@ public class ConsumerServiceImpl implements ConsumerService {
     @Transactional
     @Override
     public void changeStatusById(Long consumerId, StatusUser statusUser) {
-        Consumer consumer = getById(consumerId);
+        Consumer consumer = (Consumer) userService.getById(consumerId);
         consumer.setStatus(statusUser);
-        save(consumer);
-    }
-
-    @Override
-    public Consumer getById(Long id) {
-        return consumerRepository.findById(id).orElseThrow(
-                ()-> {
-                    log.error("Consumer with id={} not found", id);
-                    return new EntityNotFoundException("Consumer with id="+id+" not found");
-                }
-        );
-    }
-    @Transactional
-    @Override
-    public Consumer save(Consumer consumer) {
-        return consumerRepository.save(consumer);
+        userService.save(consumer);
     }
 }

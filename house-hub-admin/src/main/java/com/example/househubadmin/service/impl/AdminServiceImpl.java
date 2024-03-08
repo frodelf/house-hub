@@ -22,14 +22,4 @@ public class AdminServiceImpl implements AdminService {
                 }
         );
     }
-
-    @Override
-    public Admin getById(Long id) {
-        return adminRepository.findById(id).orElseThrow(
-                ()-> {
-                    log.error("Admin with id={} not found", id);
-                    return new EntityNotFoundException("Admin with id="+id+" not found");
-                }
-        );
-    }
 }

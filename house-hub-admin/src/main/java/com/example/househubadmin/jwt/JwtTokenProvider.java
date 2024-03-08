@@ -3,6 +3,7 @@ package com.example.househubadmin.jwt;
 import com.example.househubadmin.entity.users.Admin;
 import com.example.househubadmin.exception.InvalidTokenException;
 import com.example.househubadmin.service.AdminService;
+import com.example.househubadmin.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -24,7 +25,7 @@ public class JwtTokenProvider {
 
     private final JwtProperties jwtProperties;
     private final UserDetailsService userDetailsService;
-    private final AdminService adminService;
+    private final UserService userService;
     private Key key;
 
     @PostConstruct
@@ -64,7 +65,7 @@ public class JwtTokenProvider {
             throw new InvalidTokenException("The refresh token is not correct!");
         }
         Long userId = Long.valueOf(getId(refreshToken));
-        Admin admin = adminService.getById(userId);
+        Admin admin = (Admin) userService.getById(userId);
 
         jwtResponse.setAccessToken(createAccessToken(userId, admin.getEmail()));
         jwtResponse.setRefreshToken(createRefreshToken(userId, admin.getEmail()));

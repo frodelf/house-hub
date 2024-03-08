@@ -9,6 +9,7 @@ import com.example.househubadmin.mapper.user.UserMapperForViewAll;
 import com.example.househubadmin.repository.NotaryRepository;
 import com.example.househubadmin.service.MinioService;
 import com.example.househubadmin.service.NotaryService;
+import com.example.househubadmin.service.UserService;
 import io.minio.errors.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -32,35 +33,23 @@ public class NotaryServiceImpl implements NotaryService {
     private final UserMapperForViewAll userMapperForViewAll;
     private final NotaryMapperForAdd notaryMapperForAdd;
     private final MinioService minioService;
+    private final UserService userService;
     @Override
     public Page<UserDtoForViewAll> getAll(Integer page, Integer pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Order.desc("id")));
-        return userMapperForViewAll.toDtoPage(notaryRepository.findAll(pageable), minioService);
+        Page<UserDtoForViewAll> result = userMapperForViewAll.toDtoPage(notaryRepository.findAll(pageable), minioService);
+        return result;
     }
+    @Transactional
     @Override
     public void add(NotaryDtoForAdd notaryDtoForAdd) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        notaryMapperForAdd.updateEntity(notaryDtoForAdd, minioService, this);
-    }
-    @Override
-    public Notary getById(Long id) {
-        Notary notary = notaryRepository.findById(id).orElseThrow(
-                ()-> {
-                    log.error("Notary with id={} not found", id);
-                    return new EntityNotFoundException("Notary with id="+id+" not found");
-                }
-        );
-        return notary;
+        userService.save(notaryMapperForAdd.updateEntity(notaryDtoForAdd, minioService, userService));
     }
     @Transactional
     @Override
     public void deleteById(Long id) {
-        Notary notary = getById(id);
+        Notary notary = (Notary) userService.getById(id);
         notary.setStatus(StatusUser.REMOVE);
-        save(notary);
-    }
-    @Transactional
-    @Override
-    public Notary save(Notary notary){
-        return notaryRepository.save(notary);
+        userService.save(notary);
     }
 }

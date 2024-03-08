@@ -1,7 +1,6 @@
 package com.example.househubadmin.controller;
 
 import com.example.househubadmin.dto.user.UserDtoForViewAll;
-import com.example.househubadmin.entity.enums.StatusState;
 import com.example.househubadmin.entity.enums.StatusUser;
 import com.example.househubadmin.service.ConsumerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,7 +34,7 @@ public class ConsumerController {
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
     })
     @Operation(summary = "The request to get all blocked consumers")
-    @GetMapping("/get-all")
+    @GetMapping("/get-all-blocked")
     public ResponseEntity<Page<UserDtoForViewAll>> getAllBlocked(@RequestParam Integer page, @RequestParam Integer pageSize, @RequestParam String consumerName){
         return ResponseEntity.ok(consumerService.getAll(page, pageSize, consumerName, StatusUser.REMOVE));
     }
