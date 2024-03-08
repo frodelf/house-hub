@@ -1,11 +1,13 @@
 package com.example.househubadmin.dto.flat;
 
 import com.example.househubadmin.entity.enums.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@Schema(description = "DTO for the page where one flat will be displayed")
 public class FlatDtoForInformationPage {
     private Long id;
     private List<String> images;

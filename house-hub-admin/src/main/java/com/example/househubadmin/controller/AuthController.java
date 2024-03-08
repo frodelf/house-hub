@@ -8,11 +8,12 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 
+@Log4j2
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
@@ -26,7 +27,7 @@ public class AuthController {
     })
     @Operation(summary = "Authorization user")
     @PostMapping("/login")
-    public JwtResponse login(@RequestBody(description = "Username and password for authorization")@org.springframework.web.bind.annotation.RequestBody JwtRequest loginRequest){
+    public JwtResponse login(@RequestBody(description = "Username and password for authorization") @org.springframework.web.bind.annotation.RequestBody JwtRequest loginRequest){
         return authService.login(loginRequest);
     }
     @ApiResponses(value = {
