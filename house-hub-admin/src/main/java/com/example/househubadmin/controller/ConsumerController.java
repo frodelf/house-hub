@@ -22,6 +22,7 @@ public class ConsumerController {
             @ApiResponse(responseCode = "200", description = "Authorized"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @Operation(summary = "The request to get all consumers")
     @GetMapping("/get-all")
@@ -32,6 +33,7 @@ public class ConsumerController {
             @ApiResponse(responseCode = "200", description = "Authorized"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @Operation(summary = "The request to get all blocked consumers")
     @GetMapping("/get-all-blocked")
@@ -42,6 +44,7 @@ public class ConsumerController {
             @ApiResponse(responseCode = "200", description = "Authorized"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @Operation(summary = "The request to change consumer's status by id")
     @PutMapping("/change-status/{consumerId}")

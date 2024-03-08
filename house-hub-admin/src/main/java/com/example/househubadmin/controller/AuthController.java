@@ -22,6 +22,7 @@ public class AuthController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Authorized"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @Operation(summary = "Authorization user")
     @PostMapping("/login")
@@ -31,6 +32,7 @@ public class AuthController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Authorized"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @Operation(summary = "Update access token")
     @PostMapping("/refresh")

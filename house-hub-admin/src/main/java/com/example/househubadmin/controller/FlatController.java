@@ -62,7 +62,18 @@ public class FlatController {
     })
     @Operation(summary = "The request to get all flats by corps id")
     @GetMapping("/get-all-by-corps-id/{corpsId}")
-    public ResponseEntity<Page<FlatDtoForViewAll>> getAll(@RequestParam Integer page, @RequestParam Integer pageSize, @PathVariable Long corpsId){
+    public ResponseEntity<Page<FlatDtoForViewAll>> getAllByCorpsId(@RequestParam Integer page, @RequestParam Integer pageSize, @PathVariable Long corpsId){
         return ResponseEntity.ok(flatService.getAll(page, pageSize, corpsId));
+    }
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Authorized"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+            @ApiResponse(responseCode = "400", description = "Invalid input data"),
+    })
+    @Operation(summary = "The request to delete the flat by id")
+    @DeleteMapping("/delete/{flatId}")
+    public ResponseEntity<String> deleteById(@PathVariable Long flatId){
+        flatService.changeStatusByFlatId(flatId, StatusState.DELETED, null);
+        return ResponseEntity.ok("deleted");
     }
 }

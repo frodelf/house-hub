@@ -27,3 +27,4 @@ minio:
   accessKey: admin
   secretKey: password
   endpoint: http://slj.avada-media-dev2.od.ua:4401
+debug: true

@@ -23,6 +23,7 @@ public class BuildingController {
             @ApiResponse(responseCode = "200", description = "Authorized"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @Operation(summary = "The request to get all buildings")
     @GetMapping("/get-all")
@@ -33,6 +34,8 @@ public class BuildingController {
             @ApiResponse(responseCode = "200", description = "Authorized"),
             @ApiResponse(responseCode = "401", description = "Unauthorized"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "404", description = "Entity not found exception."),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     @Operation(summary = "The request to get all corps by building id")
     @GetMapping("/get-all-corps-by-building-id/{builderId}")

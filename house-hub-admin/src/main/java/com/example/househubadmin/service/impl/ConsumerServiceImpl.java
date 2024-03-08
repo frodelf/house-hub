@@ -8,7 +8,6 @@ import com.example.househubadmin.repository.ConsumerRepository;
 import com.example.househubadmin.service.ConsumerService;
 import com.example.househubadmin.service.MinioService;
 import com.example.househubadmin.service.UserService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -34,7 +33,12 @@ public class ConsumerServiceImpl implements ConsumerService {
     @Transactional
     @Override
     public void changeStatusById(Long consumerId, StatusUser statusUser) {
-        Consumer consumer = (Consumer) userService.getById(consumerId);
+        Consumer consumer;
+        try {
+            consumer = (Consumer) userService.getById(consumerId);
+        }catch (ClassCastException e){
+            throw new ClassCastException("User by id = "+consumerId+" isn't Admin");
+        }
         consumer.setStatus(statusUser);
         userService.save(consumer);
     }

@@ -23,7 +23,7 @@ public class NotaryValidator implements Validator {
         if (studentDtoForAdd.getId() == null) {
             ValidImageUtil.validImage(studentDtoForAdd.getImage(), errors);
             if (userService.validPhone(studentDtoForAdd.getPhone()))
-                errors.rejectValue("telephone", "", "The phone is already in use.");
+                errors.rejectValue("phone", "", "The phone is already in use.");
             if (userService.validEmail(studentDtoForAdd.getEmail()))
                 errors.rejectValue("email", "", "The email is already in use.");
         }

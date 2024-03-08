@@ -1,9 +1,5 @@
 package com.example.househubadmin.jwt;
 
-import com.example.househubadmin.exception.BadRequestException;
-import com.example.househubadmin.exception.InternalServerError;
-import com.example.househubadmin.exception.MethodNotAllowedException;
-import com.example.househubadmin.exception.NotFoundException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -27,19 +23,6 @@ public class JwtTokenFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String bearerToken = ((HttpServletRequest) servletRequest).getHeader("Authorization");
-        if (bearerToken == null) {
-            HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-            int status = httpServletResponse.getStatus();
-            if(status == 400){
-                throw new BadRequestException("Bad Request");
-            }else if(status == 404){
-                throw new NotFoundException("The request not found ");
-            }else if(status == 405){
-                throw new MethodNotAllowedException("Method not allowed");
-            } else if (status == 500) {
-                throw new InternalServerError("Internal server error");
-            }
-        }
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             bearerToken = bearerToken.substring(7);
         }

@@ -28,6 +28,8 @@ public class ValidImageUtil {
             if (!ValidImageUtil.isSizeValid(image)) {
                 errors.rejectValue("image", "", "Size should be less then 10MB");
             }
+        }else {
+            errors.rejectValue("image", "", "Image must be selected");
         }
     }
 }

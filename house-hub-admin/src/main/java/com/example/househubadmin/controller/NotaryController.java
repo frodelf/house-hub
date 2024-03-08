@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -47,8 +48,8 @@ public class NotaryController {
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
     })
     @Operation(summary = "The request to add or update(if id isn't null) a notary")
-    @GetMapping("/add")
-    public ResponseEntity<Map<String, String>> add(@RequestBody @Valid NotaryDtoForAdd notaryDtoForAdd, BindingResult bindingResult) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+    @PostMapping(value = "/add")
+    public ResponseEntity<Map<String, String>> add(@ModelAttribute @Valid NotaryDtoForAdd notaryDtoForAdd, BindingResult bindingResult) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
         notaryValidator.validate(notaryDtoForAdd, bindingResult);
         Map<String, String> errorsMap = new HashMap<>();
         if (bindingResult.hasErrors()) {
@@ -64,10 +65,9 @@ public class NotaryController {
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
     })
     @Operation(summary = "The request to delete the notary by id")
-    @GetMapping("/delete/{notaryId}")
+    @DeleteMapping("/delete/{notaryId}")
     public ResponseEntity<String> deleteById(@PathVariable Long notaryId){
         notaryService.deleteById(notaryId);
         return ResponseEntity.ok("deleted");
     }
-
 }
